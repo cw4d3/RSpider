@@ -35,7 +35,7 @@ Options:
   -w, --html          File output is HTML format
   -s, --csv           File output is comma-delineated CSV format
   -p, --plaintext     File output is plaintext
-  -c, --code          Include page response code in report
+  -c, --code          Include page response code in output
   -t, --time          Include page response time (in milliseconds) for the request
 
 Example:
