@@ -97,21 +97,21 @@ end
 
 ####### HTML Format
 if options.html
-  urls.map! { |item| "<a href=\"#{item}\">#{item}</a>\t" }
-  path.map! { |item| "<a href=\"#{item}\">#{item}</a>\t" }
-  code.map! { |item| "#{item}\t" }
-  time.map! { |item| "#{item}\t" }
+  urls.map! { |item| "<td><a href=\"#{item}\">#{item}</a></td>" }
+  path.map! { |item| "<td><a href=\"#{item}\">#{item}</a></td>" }
+  code.map! { |item| "<td>#{item}</td>" }
+  time.map! { |item| "<td>#{item}</td>" }
   
   # build the flattened array based on relative or full url options
   if options.relative
-    @final = path.zip(code, time, br)
+    @final = path.zip(code, time, br).sort
   elsif !options.relative
     @final = urls.zip(code, time, br).sort
   end
   
-  # write the array to file
+  # write the final array to file
   File.open("#{@output}" + "#{filename}.html", "w") do |f|
-    f.puts @final.each { |row| row.join("\t") }
+    f.puts @final
   end
   puts "\nComplete!" 
 
@@ -129,7 +129,7 @@ elsif options.csv
     @final = urls.zip(code, time).sort
   end
   
-  # write the array to file
+  # write the final array to file
   File.open("#{@output}" + "#{filename}.csv", "w") do |f|
     @final.each { |row| f.puts row.join(",") }
   end
@@ -137,11 +137,6 @@ elsif options.csv
 
 ####### Plaintext Format
 elsif options.text
-  #urls.map! { |item| "#{item}" }
-  #path.map! { |item| "#{item}" }
-  #code.map! { |item| "#{item}" }
-  #time.map! { |item| "#{item}" }
-  
   if options.relative
     @final = path.zip(code, time)
   elsif !options.relative
@@ -149,7 +144,7 @@ elsif options.text
   end
   
   File.open("#{@output}" + "#{filename}.txt", "w") do |f|
-    @final.each { |row| f.puts row.join(" ") }
+    @final.each { |row| f.puts row.join(" \t") }
   end
   puts "\nComplete!"
 
