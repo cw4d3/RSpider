@@ -24,9 +24,10 @@ Usage:
   ruby rspider.rb [options] <filename> <url>
     
 Synopsis:
-  Rspider crawls a site starting at the given URL and outputs the URLs (absolute or relative), response time, and response code
-  (optional) of each page in the domain as they are encountered. Rspider will only crawl within the given domain. If a directory
-  output is not specified, the directory containing the script will be used. If no file output format is specified, STDOUT will be used.
+  Rspider crawls a site starting at the given URL and outputs the URLs (absolute or relative), response time,
+  and response code(optional) of each page in the domain as they are encountered. Rspider will only crawl within
+  the given domain. If a directory output is not specified, the directory containing the script will be used.
+  If no file output format is specified, STDOUT will be used.
   
 
 Options:
