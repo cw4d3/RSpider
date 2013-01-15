@@ -59,6 +59,7 @@ if options.output
   @output = options.output
 end
 
+# Run the spider
 puts "######################################################
       \nRSpider -- writes URLs and response codes to file 
       \n######################################################"
@@ -67,7 +68,7 @@ puts "\nTarget:           #{target}"
 puts "Output/Filename:  #{@output}" + "#{filename}
       \nProcessing...\n"
 
-###### Create empty arrays for each option
+# create empty arrays for each option
 all =  []
 urls = []
 path = []
@@ -76,7 +77,7 @@ time = []
 br   = []
 final = []
 
-###### Process Target
+# process the target and build each array
 Anemone.crawl(target, :discard_page_bodies => true) do |spider|
   spider.on_every_page do |page|
     if !options.relative
@@ -95,14 +96,14 @@ Anemone.crawl(target, :discard_page_bodies => true) do |spider|
   end
 end
 
-####### HTML Format
+## HTML Format
 if options.html
   urls.map! { |item| "<td><a href=\"#{item}\">#{item}</a></td>" }
   path.map! { |item| "<td><a href=\"#{item}\">#{item}</a></td>" }
   code.map! { |item| "<td>#{item}</td>" }
   time.map! { |item| "<td>#{item}</td>" }
   
-  # build the flattened array based on relative or full url options
+  # build the zipped array based on relative or full url options
   if options.relative
     @final = path.zip(code, time, br).sort
   elsif !options.relative
@@ -115,14 +116,14 @@ if options.html
   end
   puts "\nComplete!" 
 
-####### CSV Format
+## CSV Format
 elsif options.csv
   urls.map! { |item| "#{item}\t" }
   path.map! { |item| "#{item}\t" }
   code.map! { |item| "#{item}\t" }
   time.map! { |item| "#{item}\t" }
   
-  # build the flattened array based on relative or full url options
+  # build the zipped array based on relative or full url options
   if options.relative
     @final = path.zip(code, time)
   elsif !options.relative
@@ -135,7 +136,7 @@ elsif options.csv
   end
   puts "\nComplete!"
 
-####### Plaintext Format
+## Plaintext Format
 elsif options.text
   if options.relative
     @final = path.zip(code, time)
@@ -148,7 +149,7 @@ elsif options.text
   end
   puts "\nComplete!"
 
-####### STDOUT  
+## STDOUT  
 elsif !options.html && !options.csv && !options.text
   if options.relative
     @final = path.zip(code, time)
@@ -158,4 +159,3 @@ elsif !options.html && !options.csv && !options.text
   puts "\n"
   @final.each { |row| puts row.join("\t") }
 end
-
