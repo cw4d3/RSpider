@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'rubygems'
+gem 'anemone', '=0.4.0.1'
 require 'anemone'
 require 'optparse'
 require 'ostruct'
@@ -21,7 +22,7 @@ rescue
   puts <<-INFO
 
 Usage:
-  ruby rspider.rb [options] <filename> <url>
+  ruby rspider.rb [options] [filename] <url>
     
 Synopsis:
   Rspider crawls a site starting at the given URL and outputs the URLs (absolute or relative), response time,
@@ -31,7 +32,7 @@ Synopsis:
   
 
 Options:
-  -r, --relative      Output relative URLs (rather than absolute)
+  -r, --relative      Output relative URLs (will not include external links)
   -o, --output        Specify the output directory (absolute path, including trailing slash)
   -w, --html          File output is HTML format
   -s, --csv           File output is comma-delineated CSV format
@@ -79,7 +80,7 @@ br   = []
 final = []
 
 # process the target and build each array
-Anemone.crawl(target, :discard_page_bodies => true) do |spider|
+Anemone.crawl(target, :discard_page_bodies => true, :delay => 0, :remember_external_links => true) do |spider|
   spider.on_every_page do |page|
     if !options.relative
       urls.push page.url
