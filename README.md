@@ -2,7 +2,9 @@ RSpider
 =======
 
 **Usage:**
-        ruby rspider.rb [options] <filename> <url>
+```ruby 
+ruby rspider.rb [options] <filename> <url>
+```
     
 **Synopsis:**
 
@@ -12,7 +14,7 @@ RSpider
   
 
 **Options:**
-
+```
   -r, --relative      Output relative URLs (rather than absolute)
   -o, --output        Specify the output directory (absolute path, including trailing slash)
   -w, --html          File output is HTML format
@@ -20,6 +22,8 @@ RSpider
   -p, --plaintext     File output is plaintext
   -c, --code          Include page response code in report
   -t, --time          Include page response time (in milliseconds) for the request
-
+```
 **Example:**
-        ruby rspider.rb --code --relative --html -o /Users/johnsnow/Desktop/ my_filename http://tar.get
+```
+ruby rspider.rb --code --relative --html -o /Users/johnsnow/Desktop/ my_filename http://tar.get
+```
